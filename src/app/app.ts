@@ -5,23 +5,38 @@ import RouteUser from "./routes/User.ts";
 class App {
   public init() {
     Deno.serve({ port: Number(env.PORT) }, async (req: Request): Promise<Response> => {
-      return this.routes(req)
+      return this.handleRequest(req)
     })
   }
 
-  private async routes(req: Request): Promise<Response> {
-    if (req.url.includes('getUsers')) {
-      return new Response(await RouteUser.getUsers(req), { status: Status.OK });
-    } else if (req.url.includes('createUser')) {
-      return new Response(await RouteUser.createUser(req), { status: Status.Created });
-    } else if (req.url.includes('findUser?id=')) {
-      return new Response(await RouteUser.getOneUser(req), { status: Status.OK });
-    } else if (req.url.includes('updateUser?id=')) {
-      return new Response(await RouteUser.updateUser(req), { status: Status.OK });
-    } else if (req.url.includes('deleteUser?id=')) {
-      return new Response(await RouteUser.deleteUser(req), { status: 204 });
+  private async handleRequest(req: Request): Promise<Response> {
+    const { pathname } = new URL(req.url);
+
+    if (this.routesMap[pathname]) {
+      return this.routesMap[pathname](req);
     } else {
-      return new Response('Hello, World!', { status: 200 });
+      return new Response('Hello, World!', { status: Status.OK });
+    }
+  }
+
+  private routesMap: Record<string, (req: Request) => Promise<Response>> = {
+    '/getUsers': (req) => this.handleRoute(RouteUser.getUsers, req, Status.OK),
+    '/createUser': (req) => this.handleRoute(RouteUser.createUser, req, Status.Created),
+    '/findUser': (req) => this.handleRoute(RouteUser.getOneUser, req, Status.OK),
+    '/updateUser': (req) => this.handleRoute(RouteUser.updateUser, req, Status.OK),
+    '/deleteUser': (req) => this.handleRoute(RouteUser.deleteUser, req, Status.OK),
+  };
+
+  private async handleRoute(
+    routeFunction: (req: Request) => Promise<string | undefined>,
+    req: Request,
+    status: number
+  ): Promise<Response> {
+    const responseText = await routeFunction(req);
+    if (responseText !== undefined) {
+      return new Response(responseText, { status });
+    } else {
+      return new Response('Not Found', { status: Status.NotFound });
     }
   }
 }
