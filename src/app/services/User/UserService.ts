@@ -1,4 +1,4 @@
-import { IUser, IUserService } from '../../interfaces/index.ts';
+import { IUser, IUserService } from '../../../interfaces/index.ts';
 class UserService implements IUserService {
   public user: Array<IUser> = [];
 

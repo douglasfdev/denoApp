@@ -1,8 +1,10 @@
-import ControllerDeleteUser from "../controllers/ControllerDeleteUser.ts";
-import ControllerGetAllUsers from "../controllers/ControllerGetAllUsers.ts";
-import ControllerGetOneUser from "../controllers/ControllerGetOneUser.ts";
-import ControllerPostUser from "../controllers/ControllerPostUser.ts";
-import ControllerUpdateUser from "../controllers/ControllerUpdateUser.ts";
+import {
+  ControllerPostUser,
+  ControllerGetAllUsers,
+  ControllerGetOneUser,
+  ControllerUpdateUser,
+  ControllerDeleteUser,
+} from '../../controllers/index.ts'
 
 class RouteUser {
   public async getUsers(req: Request): Promise<string | undefined> {

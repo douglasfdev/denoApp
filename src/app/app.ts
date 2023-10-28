@@ -1,8 +1,11 @@
 import { env } from "../common/env.config.ts";
 import { Status } from "https://deno.land/std@0.204.0/http/http_status.ts";
-import RouteUser from "./routes/User.ts";
-
+import { RouteUser } from "./routes/index.ts";
 class App {
+  constructor() {
+    this.init();
+  }
+
   public init() {
     Deno.serve({ port: Number(env.PORT) }, async (req: Request): Promise<Response> => {
       return this.handleRequest(req)

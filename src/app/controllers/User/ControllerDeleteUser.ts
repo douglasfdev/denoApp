@@ -1,4 +1,4 @@
-import UserService from "../service/UserService.ts";
+import { UserService } from "../../services/index.ts";
 
 class ControllerDeleteUser {
   public user: typeof UserService;
