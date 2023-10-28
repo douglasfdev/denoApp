@@ -1,5 +1,20 @@
 # Api DenoJS vanilla
 
+
+#### Para iniciar o projeto
+Basta rodar o projeot basta clonar o projeto com o comando `git clone + url`.
+
+Caso não estiver o docker instalado basta rodar o comando **`deno task start`** ou **`deno task dev`**
+
+#### Docker
+<details><summary><b>Mostrar instruções</b></summary>
+
+Projeto podera ser rodado com um container docker rodando o comando **`docker-compose up -d`**.
+Projeto tem a porta 5000 exposta para rodar o projeto.
+
+</details>
+
+
 #### Rotas Usuário
 <details><summary><b>Mostrar instruções</b></summary>
 
