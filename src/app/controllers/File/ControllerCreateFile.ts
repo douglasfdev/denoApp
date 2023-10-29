@@ -1,4 +1,4 @@
-import FileService from "../../services/File/FileService.ts";
+import { FileService } from "../../services/index.ts";
 
 class ControllerCreateFile {
   private file: typeof FileService;

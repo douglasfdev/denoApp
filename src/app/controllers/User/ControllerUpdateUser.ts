@@ -1,14 +1,14 @@
-import { UserService } from "../../services/index.ts";
+import { FileService } from "../../services/index.ts";
 
 class ControllerUpdateUser {
-  public user: typeof UserService;
+  public file: typeof FileService;
 
   constructor() {
-    this.user = UserService;
+    this.file = FileService;
   }
 
   public async updateUser(req: Request): Promise<string | undefined> {
-    return this.user.updateUser(req)
+    return this.file.updateUser(req)
   }
 }
 

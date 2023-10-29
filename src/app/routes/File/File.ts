@@ -1,8 +1,15 @@
-import ControllerCreateFile from "../../controllers/File/ControllerCreateFile.ts";
+import {
+  ControllerCreateFile,
+  ControllerDeleteUserIntoDb,
+  ControllerGetUserIntoDb,
+  ControllerListUsers,
+  ControllerUpdateUser,
+} from "../../controllers/index.ts";
 
 class RouteFile {
-  public async getFiles(req: Request) {
+  public async getUsers(req: Request) {
     if (req.method === 'GET') {
+      return ControllerListUsers.getUsers();
     }
   }
 
@@ -12,18 +19,21 @@ class RouteFile {
     }
   }
 
-  public async getOneFile(req: Request) {
+  public async getOneUser(req: Request) {
     if (req.method === 'GET') {
+      return ControllerGetUserIntoDb.getUser(req);
     }
   }
 
-  public async updateFile(req: Request) {
+  public async updateUser(req: Request) {
     if (req.method === 'PUT') {
+      return ControllerUpdateUser.updateUser(req);
     }
   }
 
-  public async deleteFile(req: Request) {
+  public async deleteUser(req: Request) {
     if (req.method === 'DELETE') {
+      return ControllerDeleteUserIntoDb.deleteUser(req);
     }
   }
 }
