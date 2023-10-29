@@ -1,6 +1,9 @@
 import { env } from "../common/env.config.ts";
 import { Status } from "https://deno.land/std@0.204.0/http/http_status.ts";
-import { RouteUser } from "./routes/index.ts";
+import { RouteUser, RouteFile } from "./routes/index.ts";
+import '../database/database.ts';
+import { UserEntity } from "./models/entities/index.ts";
+
 class App {
   constructor() {
     this.init();
@@ -28,6 +31,11 @@ class App {
     '/findUser': (req) => this.handleRoute(RouteUser.getOneUser, req, Status.OK),
     '/updateUser': (req) => this.handleRoute(RouteUser.updateUser, req, Status.OK),
     '/deleteUser': (req) => this.handleRoute(RouteUser.deleteUser, req, Status.OK),
+    '/createFile': (req) => this.handleRoute(RouteFile.createFile, req, Status.Created),
+    '/listUsers': (req) => this.handleRoute(RouteFile.getUsers, req, Status.OK),
+    '/listOneUser': (req) => this.handleRoute(RouteFile.getOneUser, req, Status.OK),
+    '/updateOneUser': (req) => this.handleRoute(RouteFile.updateUser, req, Status.OK),
+    '/deleteOneUser': (req) => this.handleRoute(RouteFile.deleteUser, req, Status.OK),
   };
 
   private async handleRoute(

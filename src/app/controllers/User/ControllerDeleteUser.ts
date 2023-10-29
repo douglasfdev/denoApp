@@ -1,7 +1,7 @@
 import { UserService } from "../../services/index.ts";
 
 class ControllerDeleteUser {
-  public user: typeof UserService;
+  private user: typeof UserService;
 
   constructor() {
     this.user = UserService;
