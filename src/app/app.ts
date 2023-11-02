@@ -14,7 +14,7 @@ class App {
     })
   }
 
-  private async handleRequest(req: Request, res: Response): Promise<Response> {
+  private async handleRequest(req: Request): Promise<Response> {
     const { pathname } = new URL(req.url);
 
     await this.loggerApp(req, pathname);
