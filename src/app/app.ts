@@ -2,7 +2,6 @@ import { env } from "../common/env.config.ts";
 import { Status } from "https://deno.land/std@0.204.0/http/http_status.ts";
 import { RouteUser, RouteFile } from "./routes/index.ts";
 import '../database/database.ts';
-import { UserEntity } from "./models/entities/index.ts";
 
 class App {
   constructor() {
@@ -15,8 +14,10 @@ class App {
     })
   }
 
-  private async handleRequest(req: Request): Promise<Response> {
+  private async handleRequest(req: Request, res: Response): Promise<Response> {
     const { pathname } = new URL(req.url);
+
+    await this.loggerApp(req, pathname);
 
     if (this.routesMap[pathname]) {
       return this.routesMap[pathname](req);
@@ -49,6 +50,11 @@ class App {
     } else {
       return new Response('Not Found', { status: Status.NotFound });
     }
+  }
+
+  private async loggerApp(req: Request, pathname: string) {
+    console.log(`${req.method}: ${pathname}`);
+    console.log(req.headers);
   }
 }
 
